@@ -1,3 +1,6 @@
+# Answer key (instructor only)
+ANSWER_KEY.md
+
 # Data (too large for git)
 data/*.db
 data/*.parquet
