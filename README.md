@@ -17,14 +17,14 @@ This downloads 12 months of NYC taxi data and loads it into a SQLite database. T
 
 ### Option 2: Use the shared database
 
-If the database has already been built on a shared location, your instructor will provide the path. Copy it into your repo:
+The database is available on Vista. Copy it into your repo:
 
 ```bash
 cd $WORK
 git clone https://github.com/ashleyscruse/gosha-sql-assignment.git
 cd gosha-sql-assignment
 mkdir -p data
-cp /path/to/shared/nyc_taxi.db data/
+cp /work/10539/ashleyscruse/vista/gosha-sql-assignment/data/nyc_taxi.db data/
 ```
 
 ### Open the database
@@ -42,7 +42,7 @@ To make output easier to read:
 
 ## The Database
 
-**trips** (about 20 million rows)
+**trips** (about 38 million rows)
 
 | Column | Type | Description |
 |--------|------|-------------|
