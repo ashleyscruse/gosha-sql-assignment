@@ -15,6 +15,12 @@ bash scripts/setup_data.sh
 
 This downloads 12 months of NYC taxi data and loads it into a SQLite database. Takes about 10-15 minutes. Requires about 9 GB of disk space on `$WORK`.
 
+**Important:** Run the download on a login node (it needs internet access), but request a compute node with `idev -m 30` before running the setup script to build the database. You will also need to load the required modules first:
+
+```bash
+module load gcc/13.2.0 python3/3.11.8
+```
+
 ### Option 2: Use the shared database
 
 The database is available on Vista. Copy it into your repo:
