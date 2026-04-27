@@ -1,6 +1,15 @@
 # Answer key (instructor only)
 ANSWER_KEY.md
 
+# Lesson plan (instructor only)
+LESSON_PLAN.md
+
+# Cheat sheet (instructor only)
+CHEAT_SHEET.md
+
+# Slides (instructor only, contains personal info)
+slides/*.pptx
+
 # Data (too large for git)
 data/*.db
 data/*.parquet
