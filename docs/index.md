@@ -5,34 +5,30 @@ title: SQL on HPC
 
 # SQL on HPC
 
-A guest lecture and homework module that bolts an HPC component onto a database systems course. You're a data analyst at the NYC Taxi & Limousine Commission, working with all 38 million yellow cab trips from 2023 (a 6.3 GB SQLite database hosted on TACC Vista).
+You're a data analyst at the NYC Taxi & Limousine Commission. To do your job today, you have access to every yellow cab trip from 2023 — 38 million rows, 6.3 GB of data, sitting on a supercomputer at TACC.
 
-Two pages, depending on where you are:
+Pick a page based on where you are:
 
 ## [Walkthrough](walkthrough.html)
 
-The full self-guided tutorial of what we did in class. Use this if:
-
-- You missed the lecture
-- You came late
-- You want to review at your own pace before doing the homework
-
-Walks through SSH, copying the database, switching to a compute node, running 6 queries that build the case for or against raising late-night fares, saving your results, and forming a recommendation.
+This walks you through what we did in class, step by step. Open it if you missed the lecture, showed up late, or want to review before starting the homework. You'll log into Vista, copy the database, run six queries, and form a recommendation, just like we did together.
 
 ## [Homework](homework.html)
 
-The graded assignment. Different question, same dataset:
+Your graded assignment. The commission has a new question for you:
 
 > **Should airport fares be priced differently from non-airport fares?**
 
-Includes sub-questions to guide your queries, submission requirements, and the rubric.
+This page has the prompt, sub-questions to guide your queries, what to submit, and how you'll be graded.
 
 ---
 
-## What you need
+## Before you start
+
+You'll need:
 
 - A TACC account with access to Vista
 - A terminal (Mac/Linux) or SSH client (Windows)
-- Basic SQL knowledge from your course
+- The basic SQL we covered in class
 
 You do not need to set up the database yourself. It's already built and shared on Vista.

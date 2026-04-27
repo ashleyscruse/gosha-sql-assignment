@@ -1,15 +1,15 @@
 # SQL on HPC: Late-Night Fare Analysis
 
-A guest lecture and homework module for a database systems course. Students play a data analyst at the NYC Taxi & Limousine Commission, working with all 38 million yellow cab trips from 2023 (a 6.3 GB SQLite database hosted on TACC Vista).
+You're a data analyst at the NYC Taxi & Limousine Commission. The commission wants to know whether late-night taxi fares should be raised. To answer, you'll work with all 38 million yellow cab trips from 2023 — a 6.3 GB SQLite database that lives on TACC Vista (a supercomputer).
 
-**Live student materials:** https://ashleyscruse.github.io/gosha-sql-assignment/
+**Start here:** https://ashleyscruse.github.io/gosha-sql-assignment/
 
-The site has two pages:
+There are two pages on the site:
 
 | Page | What it's for |
 |------|---------------|
-| [Walkthrough](https://ashleyscruse.github.io/gosha-sql-assignment/walkthrough.html) | Self-guided tutorial of the in-class investigation. Use if you missed the lecture, came late, or want to review at your own pace. |
-| [Homework](https://ashleyscruse.github.io/gosha-sql-assignment/homework.html) | Graded assignment with sub-questions, submission requirements, and rubric. |
+| [Walkthrough](https://ashleyscruse.github.io/gosha-sql-assignment/walkthrough.html) | Walks you through what we did in class, step by step. Use this if you missed the lecture, showed up late, or want to review before the homework. |
+| [Homework](https://ashleyscruse.github.io/gosha-sql-assignment/homework.html) | Your assignment. Same dataset, different question. Has the prompt, sub-questions, what to submit, and how it's graded. |
 
 ---
 
@@ -80,6 +80,6 @@ You should see `trips` and `zones`. You're ready to query.
 
 ---
 
-## For instructors adapting this
+---
 
-This repo is paired with the more general [sql-on-hpc template](https://github.com/morehouse-supercomputing/sql-on-hpc), which has the database setup script and a generic instructor guide. This repo holds the specific assignment + walkthrough used for this class.
+*Instructors: a more general template version of this module lives at [sql-on-hpc](https://github.com/morehouse-supercomputing/sql-on-hpc). This repo holds the class-specific assignment, walkthrough, and shared database path.*
