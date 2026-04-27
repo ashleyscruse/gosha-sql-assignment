@@ -82,4 +82,4 @@ You should see `trips` and `zones`. You're ready to query.
 
 ---
 
-*Instructors: a more general template version of this module lives at [sql-on-hpc](https://github.com/morehouse-supercomputing/sql-on-hpc). This repo holds the class-specific assignment, walkthrough, and shared database path.*
+*For instructors: if you're looking to adapt this module for your own course, please reach out at ashley.scruse@morehouse.edu.*
