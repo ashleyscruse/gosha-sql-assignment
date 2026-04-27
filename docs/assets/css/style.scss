@@ -8,19 +8,30 @@ $maroon: #840028;
 $maroon-dark: #6a0020;
 $gold: #C1A231;
 
-// Header
+// Hero / page header
 .page-header {
-  background-color: $maroon;
-  background-image: linear-gradient(120deg, $maroon, $maroon-dark);
+  background-color: $maroon !important;
+  background-image: linear-gradient(120deg, $maroon, $maroon-dark) !important;
+  color: #ffffff !important;
 }
 
-// Headings
-h1, h2, h3 {
-  color: $maroon;
+.page-header .project-name,
+.page-header .project-tagline {
+  color: #ffffff !important;
+}
+
+// All headings on the page
+.main-content h1,
+.main-content h2,
+.main-content h3,
+.main-content h4,
+.main-content h5,
+.main-content h6 {
+  color: $maroon !important;
 }
 
 // Links
-a {
+.main-content a {
   color: $maroon;
 
   &:hover {
@@ -28,43 +39,51 @@ a {
   }
 }
 
-// Buttons
-.btn {
-  color: $maroon;
-  border-color: $maroon;
+// Buttons in the hero header
+.page-header .btn {
+  color: #ffffff;
+  border-color: $gold;
+  background-color: rgba(193, 162, 49, 0.2);
 
   &:hover {
-    color: #fff;
-    background-color: $maroon;
-    border-color: $maroon;
+    background-color: $gold;
+    border-color: $gold;
+    color: $maroon;
   }
 }
 
 // Inline code
-code {
+.main-content code {
   color: $maroon;
   background-color: #f5f1f2;
 }
 
-// Code blocks (preserve readability)
-pre code {
-  color: inherit;
+// Code blocks stay readable on dark background
+.main-content pre {
+  background-color: #1f1f1f;
+}
+
+.main-content pre code {
+  color: #f8f8f2;
   background-color: transparent;
 }
 
-// Table headers
-.main-content {
-  table th {
-    background-color: $maroon;
-    color: #fff;
-  }
-
-  table tr:nth-child(2n) {
-    background-color: #faf6f7;
-  }
+// Tables
+.main-content table th {
+  background-color: $maroon;
+  color: #ffffff;
 }
 
-// Blockquote
+.main-content table tr:nth-child(2n) {
+  background-color: #faf6f7;
+}
+
+// Blockquote accent
 .main-content blockquote {
   border-left-color: $gold;
+}
+
+// Horizontal rule
+.main-content hr {
+  background-color: $gold;
 }
