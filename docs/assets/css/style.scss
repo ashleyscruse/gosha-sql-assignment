@@ -58,13 +58,15 @@ $gold: #C1A231;
   background-color: #f5f1f2;
 }
 
-// Code blocks stay readable on dark background
+// Code blocks: light maroon-tinted background, dark text (preserves syntax highlighting)
 .main-content pre {
-  background-color: #1f1f1f;
+  background-color: #fbf3f4;
+  border: 1px solid #e8d5d8;
+  color: #1f1f1f;
 }
 
 .main-content pre code {
-  color: #f8f8f2;
+  color: inherit;
   background-color: transparent;
 }
 
