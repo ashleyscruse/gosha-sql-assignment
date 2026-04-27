@@ -1,11 +1,10 @@
 ---
 layout: default
-title: Walkthrough
+title: Late-Night Fares
+tagline: The investigation we ran in class
 ---
 
 [Home](./)  |  **Walkthrough**  |  [Homework](homework.html)
-
-# Walkthrough: The In-Class Demo
 
 This page walks you through the technical setup and the six queries we ran during the lecture. Use it to replicate the demo on your own machine if you missed class, came in late, or want to review the SQL before the homework.
 

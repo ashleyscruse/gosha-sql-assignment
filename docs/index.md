@@ -1,11 +1,10 @@
 ---
 layout: default
 title: SQL on HPC
+tagline: A class assignment from the NYC Taxi & Limousine Commission
 ---
 
 **Home**  |  [Walkthrough](walkthrough.html)  |  [Homework](homework.html)
-
-# SQL on HPC
 
 You're a data analyst at the NYC Taxi & Limousine Commission. To do your job today, you have access to every yellow cab trip from 2023 — 38 million rows, 6.3 GB of data, sitting on a supercomputer at TACC.
 
