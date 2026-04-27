@@ -215,6 +215,43 @@ exit  # leaves the idev session
 
 ---
 
+## Get your CSVs onto your laptop
+
+Your query results are still on Vista. To submit them, you need to pull them down.
+
+**On Vista**, in the directory with your CSVs:
+
+```bash
+pwd
+zip results.zip query_1.csv query_2.csv query_3.csv query_4.csv query_5.csv query_6.csv
+```
+
+Copy the path that `pwd` printed.
+
+**Open a new terminal on your laptop** (not the Vista shell). Run:
+
+```bash
+scp USERNAME@vista.tacc.utexas.edu:<path-from-pwd>/results.zip ~/<your-folder>
+```
+
+Replace:
+- `USERNAME` with your TACC username
+- `<path-from-pwd>` with what `pwd` printed (something like `/work/NNNNN/USERNAME/sql-demo/data`)
+- `~/<your-folder>` with where you want the file locally (e.g., `~/Desktop`)
+
+Enter your TACC password and token when prompted.
+
+Unzip on your laptop:
+
+```bash
+cd ~/<your-folder>
+unzip results.zip
+```
+
+**Common gotcha:** `scp` runs from your laptop's terminal, not from Vista. Open a new window on your machine.
+
+---
+
 ## Now do the homework
 
 You've now run the same six queries we ran together in class. The interpretation, recommendation, and what the data does and doesn't support are what we worked through in the lecture — if you missed any of that, come to office hours.
