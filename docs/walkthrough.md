@@ -69,6 +69,21 @@ You'll see two tables: `trips` (38M rows) and `zones` (70-row Manhattan neighbor
 
 ---
 
+## Important: how to run `.once` correctly
+
+**`.once` and the SQL query must be run as TWO separate commands.** Do not paste them together as one block.
+
+The correct workflow:
+
+1. Type `.once query_1.csv` and press Enter.
+2. Then type or paste the `SELECT` query, ending with `;`, and press Enter.
+
+If you paste both at once, SQLite tries to read `.once` with extra parameters and errors out. You'll see something like `ERROR: extra parameter: "SELECT"`.
+
+When you see code blocks below with `.once` on top of a `SELECT`, that means **two separate inputs**, not one.
+
+---
+
 ## Phase 1: Meet the data
 
 **Question:** What are we actually working with?

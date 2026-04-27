@@ -87,7 +87,16 @@ You're welcome to ask additional questions of the data if they help your case.
 
 ## Save your query results
 
-Before each query, tell SQLite to save the result to a CSV file:
+Before each query, tell SQLite to save the result to a CSV file.
+
+**Important: each line below must be entered as a separate command.** Do not paste them together as one block. SQLite errors out if you try to combine `.once` with a SELECT.
+
+Workflow:
+
+1. Type `.headers on` and press Enter.
+2. Type `.mode csv` and press Enter.
+3. Type `.once query_1.csv` and press Enter.
+4. Then type or paste your SELECT query, ending with `;`, and press Enter.
 
 ```sql
 .headers on
@@ -96,7 +105,9 @@ Before each query, tell SQLite to save the result to a CSV file:
 SELECT ...your query...;
 ```
 
-Repeat for each query (`query_2.csv`, `query_3.csv`, etc.). After you `.quit` SQLite, view them from the shell:
+Repeat the `.once query_N.csv` step before each new query (`query_2.csv`, `query_3.csv`, etc.).
+
+After you `.quit` SQLite, view them from the shell:
 
 ```bash
 ls *.csv

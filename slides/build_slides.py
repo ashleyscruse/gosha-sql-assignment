@@ -122,13 +122,9 @@ def footer(slide, page_num=None, total=None):
              "SQL on HPC  |  Morehouse Supercomputing Facility",
              font=BODY_FONT, size=10, color=WHITE,
              anchor=MSO_ANCHOR.MIDDLE)
-    if page_num and total:
-        add_text(slide, Inches(11.5), Inches(7.22), Inches(1.5), Inches(0.26),
-                 f"{page_num} / {total}", font=BODY_FONT, size=10, color=WHITE,
-                 align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
 
 
-TOTAL_SLIDES = 24
+TOTAL_SLIDES = 19
 slide_num = 0
 
 # =============================================================================
@@ -155,26 +151,7 @@ add_text(s, Inches(0.5), Inches(6.5), Inches(12), Inches(0.4),
          font=BODY_FONT, size=14, color=COOL_GRAY)
 
 # =============================================================================
-# Slide 2: Who I am
-# =============================================================================
-slide_num += 1
-s = prs.slides.add_slide(BLANK)
-header_bar(s, "WHO I AM")
-add_text(s, Inches(0.5), Inches(1.5), Inches(12), Inches(0.6),
-         "Ashley Scruse, Ph.D.", font=HEAD_FONT, size=32, bold=True, color=MAROON)
-add_text(s, Inches(0.5), Inches(2.1), Inches(12), Inches(0.4),
-         "Deputy Director, Morehouse Supercomputing Facility (MSCF)",
-         font=BODY_FONT, size=18, color=BLACK)
-add_bullets(s, Inches(0.5), Inches(3.0), Inches(12), Inches(3.5), [
-    "I'm not a SQL expert. I'm here to bring the HPC piece.",
-    "Bioinformatics Ph.D. from UGA via the Clark Atlanta HBCU pipeline.",
-    "MSCF runs Morehouse's relationship with the Vista supercomputer at TACC.",
-    "Today I'm wearing the data analyst hat with you.",
-], size=20)
-footer(s, slide_num, TOTAL_SLIDES)
-
-# =============================================================================
-# Slide 3: Roadmap
+# Slide 2: Roadmap
 # =============================================================================
 slide_num += 1
 s = prs.slides.add_slide(BLANK)
@@ -596,192 +573,47 @@ add_text(s, Inches(1.0), Inches(4.5), Inches(11.5), Inches(0.5),
          font=MONO_FONT, size=18, color=COOL_GRAY)
 
 # =============================================================================
-# Slide 15: Phase 1 recap
+# Slide: What we found (consolidated outcomes from all 4 phases)
 # =============================================================================
 slide_num += 1
 s = prs.slides.add_slide(BLANK)
-header_bar(s, "PHASE 1: MEET THE DATA")
-add_text(s, Inches(0.5), Inches(1.4), Inches(12), Inches(0.5),
-         "Question: what are we actually working with?",
+header_bar(s, "WHAT WE FOUND")
+add_text(s, Inches(0.5), Inches(1.3), Inches(12), Inches(0.5),
+         "Six queries. Four findings. One surprise.",
          font=BODY_FONT, size=20, bold=True, color=MAROON)
-# query box
-add_rect(s, Inches(0.5), Inches(2.2), Inches(12.3), Inches(1.0), LIGHT_GRAY)
-add_text(s, Inches(0.7), Inches(2.3), Inches(12), Inches(0.4),
-         "SELECT COUNT(*) FROM trips;",
-         font=MONO_FONT, size=18, bold=True, color=MAROON)
-add_text(s, Inches(0.7), Inches(2.7), Inches(12), Inches(0.4),
-         "SELECT * FROM trips LIMIT 5;",
-         font=MONO_FONT, size=18, bold=True, color=MAROON)
-add_text(s, Inches(0.5), Inches(3.6), Inches(12), Inches(0.5),
-         "What we found:",
-         font=HEAD_FONT, size=18, bold=True, color=MAROON)
-add_bullets(s, Inches(0.5), Inches(4.1), Inches(12), Inches(2.5), [
-    "38,310,226 trips in 2023.",
-    "pickup_time is stored as TEXT, not a real timestamp. We'll do string surgery later.",
-    "payment_type is coded: 1=Credit, 2=Cash, 3=No charge, 4=Dispute.",
-], size=18)
-footer(s, slide_num, TOTAL_SLIDES)
 
-# =============================================================================
-# Slide 16: Phase 2 recap
-# =============================================================================
-slide_num += 1
-s = prs.slides.add_slide(BLANK)
-header_bar(s, "PHASE 2: WHEN DO TRIPS HAPPEN?")
-add_text(s, Inches(0.5), Inches(1.4), Inches(12), Inches(0.5),
-         "Question: are late-night trips even a meaningful slice of business?",
-         font=BODY_FONT, size=20, bold=True, color=MAROON)
-add_text(s, Inches(0.5), Inches(2.2), Inches(12), Inches(0.5),
-         "What we found:",
-         font=HEAD_FONT, size=18, bold=True, color=MAROON)
-add_bullets(s, Inches(0.5), Inches(2.7), Inches(12), Inches(3), [
-    "Peak hour: 6 PM with 2.7 million trips. Trough: 4 AM with 217,000.",
-    "Late-night (10 PM to 4:59 AM) = 6.4M trips, or 16.7% of total business.",
-    "Not trivial, not dominant. Big enough to matter for a fare-change decision.",
-], size=18)
-# big number callout
-add_rect(s, Inches(8.5), Inches(5.5), Inches(4), Inches(1.4), MAROON)
-add_text(s, Inches(8.5), Inches(5.55), Inches(4), Inches(0.5), "LATE-NIGHT SHARE",
-         font=HEAD_FONT, size=14, bold=True, color=GOLD,
-         align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-add_text(s, Inches(8.5), Inches(5.95), Inches(4), Inches(0.9), "16.7%",
-         font=HEAD_FONT, size=44, bold=True, color=WHITE,
-         align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-footer(s, slide_num, TOTAL_SLIDES)
-
-# =============================================================================
-# Slide 17: Phase 3 recap
-# =============================================================================
-slide_num += 1
-s = prs.slides.add_slide(BLANK)
-header_bar(s, "PHASE 3: WHERE DO LATE-NIGHT TRIPS HAPPEN?")
-add_text(s, Inches(0.5), Inches(1.4), Inches(12), Inches(0.5),
-         "Question: who's actually riding at night?",
-         font=BODY_FONT, size=20, bold=True, color=MAROON)
-zones = [
-    ("1", "JFK Airport", "416,574"),
-    ("2", "East Village", "402,029"),
-    ("3", "West Village", "339,860"),
-    ("4", "Clinton East", "281,816"),
-    ("5", "Sutton Place / Turtle Bay South", "254,150"),
-    ("6", "Lower East Side", "236,074"),
-    ("7", "Greenwich Village South", "230,367"),
-    ("8", "Midtown Center", "206,353"),
-    ("9", "Lincoln Square East", "199,624"),
-    ("10", "Penn Station / Madison Sq West", "191,701"),
+findings = [
+    ("Scale",
+     "38.3 million trips in 2023.",
+     "Too big to comfortably handle on a laptop."),
+    ("Volume",
+     "Late-night = 16.7% of total business.",
+     "Meaningful slice. Not trivial, not dominant."),
+    ("Where",
+     "Top zones: JFK Airport, East Village, West Village, Penn Station.",
+     "Mixed riders: airport travelers + entertainment + transit."),
+    ("How",
+     "Avg fare $19.60 vs $19.51. Distance 4.32 vs 4.04 mi. Tip $3.51 vs $3.52.",
+     "Late-night and daytime are basically identical on the dollar metrics."),
 ]
-y = Inches(2.2)
-for rank, name, count in zones:
-    add_text(s, Inches(0.5), y, Inches(0.5), Inches(0.3), rank,
-             font=HEAD_FONT, size=14, bold=True, color=MAROON, align=PP_ALIGN.RIGHT)
-    add_text(s, Inches(1.1), y, Inches(8), Inches(0.3), name,
-             font=BODY_FONT, size=14, color=BLACK)
-    add_text(s, Inches(8.5), y, Inches(2), Inches(0.3), count,
-             font=MONO_FONT, size=14, color=GOLD, align=PP_ALIGN.RIGHT)
-    y += Inches(0.32)
-add_text(s, Inches(0.5), Inches(6.3), Inches(12.5), Inches(0.5),
-         "Mixed picture: airport (red-eyes), entertainment districts, transit hubs. NOT just bar crowd.",
-         font=BODY_FONT, size=16, bold=True, color=MAROON)
-footer(s, slide_num, TOTAL_SLIDES)
 
-# =============================================================================
-# Slide 18: Phase 4 recap (THE SURPRISE)
-# =============================================================================
-slide_num += 1
-s = prs.slides.add_slide(BLANK)
-header_bar(s, "PHASE 4: HOW ARE LATE-NIGHT TRIPS DIFFERENT?")
-add_text(s, Inches(0.5), Inches(1.4), Inches(12), Inches(0.5),
-         "Question: in fare, distance, and tipping, is late-night a different beast?",
-         font=BODY_FONT, size=20, bold=True, color=MAROON)
-# comparison table
-table_top = Inches(2.2)
-hr = Inches(0.7)
-cw1 = Inches(3.5)
-cw2 = Inches(3.0)
-cw3 = Inches(3.0)
-cw4 = Inches(2.8)
-x1, x2, x3, x4 = Inches(0.5), Inches(4.0), Inches(7.0), Inches(10.0)
-
-add_rect(s, x1, table_top, cw1, hr, MAROON)
-add_rect(s, x2, table_top, cw2, hr, MAROON)
-add_rect(s, x3, table_top, cw3, hr, MAROON)
-add_rect(s, x4, table_top, cw4, hr, MAROON)
-add_text(s, x1, table_top, cw1, hr, "Metric", font=HEAD_FONT, size=18, bold=True,
-         color=WHITE, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-add_text(s, x2, table_top, cw2, hr, "Daytime", font=HEAD_FONT, size=18, bold=True,
-         color=WHITE, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-add_text(s, x3, table_top, cw3, hr, "Late-Night", font=HEAD_FONT, size=18, bold=True,
-         color=WHITE, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-add_text(s, x4, table_top, cw4, hr, "Difference", font=HEAD_FONT, size=18, bold=True,
-         color=WHITE, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-
-rows = [
-    ("Avg fare", "$19.51", "$19.60", "+$0.09 (0.5%)"),
-    ("Avg distance", "4.04 mi", "4.32 mi", "+0.28 mi (7%)"),
-    ("Avg tip", "$3.52", "$3.51", "$0.01"),
-]
-y = table_top + hr
-for i, (label, day, night, diff) in enumerate(rows):
-    bg = LIGHT_GRAY if i % 2 == 0 else WHITE
-    add_rect(s, x1, y, cw1, hr, bg)
-    add_rect(s, x2, y, cw2, hr, bg)
-    add_rect(s, x3, y, cw3, hr, bg)
-    add_rect(s, x4, y, cw4, hr, bg)
-    add_text(s, x1 + Inches(0.1), y, cw1, hr, label,
-             font=HEAD_FONT, size=14, bold=True, color=MAROON, anchor=MSO_ANCHOR.MIDDLE)
-    add_text(s, x2, y, cw2, hr, day, font=BODY_FONT, size=14, color=BLACK,
+y = Inches(2.0)
+for label, finding, takeaway in findings:
+    # Label box
+    add_rect(s, Inches(0.5), y, Inches(1.5), Inches(1.05), GOLD)
+    add_text(s, Inches(0.5), y, Inches(1.5), Inches(1.05), label,
+             font=HEAD_FONT, size=18, bold=True, color=MAROON,
              align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-    add_text(s, x3, y, cw3, hr, night, font=BODY_FONT, size=14, color=BLACK,
-             align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-    add_text(s, x4, y, cw4, hr, diff, font=BODY_FONT, size=14, color=GOLD,
-             bold=True, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-    y += hr
+    # Finding text
+    add_text(s, Inches(2.2), y + Inches(0.05), Inches(10.8), Inches(0.45),
+             finding, font=BODY_FONT, size=15, bold=True, color=BLACK)
+    add_text(s, Inches(2.2), y + Inches(0.55), Inches(10.8), Inches(0.45),
+             takeaway, font=BODY_FONT, size=13, color=COOL_GRAY)
+    y += Inches(1.2)
 
-add_text(s, Inches(0.5), Inches(5.8), Inches(12.3), Inches(0.6),
-         "The surprise: late-night and daytime trips are basically identical.",
-         font=HEAD_FONT, size=22, bold=True, color=MAROON, align=PP_ALIGN.CENTER)
-footer(s, slide_num, TOTAL_SLIDES)
-
-# =============================================================================
-# Slide 19: Saving and handing off your work
-# =============================================================================
-slide_num += 1
-s = prs.slides.add_slide(BLANK)
-header_bar(s, "SAVE YOUR WORK, HAND IT OFF")
-add_text(s, Inches(0.5), Inches(1.4), Inches(12), Inches(0.5),
-         "An analysis is only useful if someone else can pick it up.",
-         font=BODY_FONT, size=20, bold=True, color=MAROON)
-add_text(s, Inches(0.5), Inches(2.2), Inches(12), Inches(0.5),
-         "In SQLite, save each query's output to a CSV:",
-         font=BODY_FONT, size=16, color=BLACK)
-add_rect(s, Inches(0.5), Inches(2.8), Inches(12.3), Inches(1.6), LIGHT_GRAY)
-code_lines = [
-    ".headers on",
-    ".mode csv",
-    ".once query_1.csv",
-    "SELECT COUNT(*) FROM trips;",
-]
-y = Inches(2.9)
-for line in code_lines:
-    add_text(s, Inches(0.7), y, Inches(12), Inches(0.35), line,
-             font=MONO_FONT, size=16, bold=True, color=MAROON)
-    y += Inches(0.32)
-
-add_text(s, Inches(0.5), Inches(4.7), Inches(12), Inches(0.5),
-         "Then view your saved files from the shell:",
-         font=BODY_FONT, size=16, color=BLACK)
-add_rect(s, Inches(0.5), Inches(5.3), Inches(12.3), Inches(1.6), LIGHT_GRAY)
-shell_lines = [
-    "ls *.csv                           # see what we saved",
-    "less query_2.csv                   # paginated view",
-    "column -t -s, query_5.csv | less   # aligned columns",
-]
-y = Inches(5.4)
-for line in shell_lines:
-    add_text(s, Inches(0.7), y, Inches(12), Inches(0.35), line,
-             font=MONO_FONT, size=14, bold=True, color=MAROON)
-    y += Inches(0.32)
-
+add_text(s, Inches(0.5), Inches(6.85), Inches(12.3), Inches(0.4),
+         "The surprise: late-night trips are not a different beast on these averages.",
+         font=HEAD_FONT, size=16, bold=True, color=MAROON, align=PP_ALIGN.CENTER)
 footer(s, slide_num, TOTAL_SLIDES)
 
 # =============================================================================

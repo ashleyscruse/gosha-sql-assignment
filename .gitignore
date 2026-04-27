@@ -15,6 +15,10 @@ data/*.db
 data/*.parquet
 data/*.csv
 
+# Query results and downloaded archives (never push these)
+*.csv
+*.zip
+
 # Python
 __pycache__/
 *.py[cod]
