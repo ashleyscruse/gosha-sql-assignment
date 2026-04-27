@@ -1,0 +1,70 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+// Morehouse brand colors
+$maroon: #840028;
+$maroon-dark: #6a0020;
+$gold: #C1A231;
+
+// Header
+.page-header {
+  background-color: $maroon;
+  background-image: linear-gradient(120deg, $maroon, $maroon-dark);
+}
+
+// Headings
+h1, h2, h3 {
+  color: $maroon;
+}
+
+// Links
+a {
+  color: $maroon;
+
+  &:hover {
+    color: $gold;
+  }
+}
+
+// Buttons
+.btn {
+  color: $maroon;
+  border-color: $maroon;
+
+  &:hover {
+    color: #fff;
+    background-color: $maroon;
+    border-color: $maroon;
+  }
+}
+
+// Inline code
+code {
+  color: $maroon;
+  background-color: #f5f1f2;
+}
+
+// Code blocks (preserve readability)
+pre code {
+  color: inherit;
+  background-color: transparent;
+}
+
+// Table headers
+.main-content {
+  table th {
+    background-color: $maroon;
+    color: #fff;
+  }
+
+  table tr:nth-child(2n) {
+    background-color: #faf6f7;
+  }
+}
+
+// Blockquote
+.main-content blockquote {
+  border-left-color: $gold;
+}
