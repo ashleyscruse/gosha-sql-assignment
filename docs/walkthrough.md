@@ -5,58 +5,26 @@ title: Walkthrough
 
 [Home](./)  |  **Walkthrough**  |  [Homework](homework.html)
 
-# Walkthrough: Should the Commission Raise Late-Night Fares?
+# Walkthrough: The In-Class Demo
 
-A self-guided tutorial of what we did in class. If you missed the lecture, came late, or just want to review at your own pace, work through this page top to bottom and you'll see the same investigation we ran together.
+This page walks you through the technical setup and the six queries we ran during the lecture. Use it to replicate the demo on your own machine if you missed class, came in late, or want to review the SQL before the homework.
 
-By the end, you'll have:
+The interpretation, recommendation, and the broader lessons from the data are intentionally not on this page. Those came from the lecture. If you missed them, come to office hours.
+
+By the end of this page, you'll have:
 
 - Logged into TACC Vista
 - Switched from a login node to a compute node
 - Run six SQL queries against a 38-million-row taxi database
 - Saved your query results as CSV files
-- Formed a defensible recommendation with the data
 
 ---
 
 ## The setup
 
-You're a data analyst at the NYC Taxi & Limousine Commission. The commission is the regulator that sets the rules every yellow cab in NYC follows.
-
-Your boss walks in and asks:
-
-> "Should we raise late-night fares? Take a position with evidence by Friday."
-
-**Late-night** = pickup time between 10 PM and 4:59 AM.
+You're a data analyst at the NYC Taxi & Limousine Commission. Your boss has asked you whether late-night fares should be raised. **Late-night** = pickup time between 10 PM and 4:59 AM.
 
 You have all of 2023's yellow cab trip data sitting in a SQLite database on the supercomputer at TACC.
-
----
-
-## How an analyst actually thinks about this
-
-Before touching SQL, work through these in your head:
-
-1. **Clarify the question.** Whose interest is the commission weighing? Driver welfare? Revenue? Riders?
-2. **Argue both sides on paper.** Decide what would change your mind *before* looking at data, otherwise you'll cherry-pick.
-3. **Ask: what data could settle each argument?** Each argument becomes a question. Each question becomes a query.
-4. **Run the queries, interpret the results.** SQL is the tool, not the point.
-5. **Acknowledge what the data CAN'T tell you.** Honest analysts are explicit about the limits.
-
-For this question, the data we have can answer:
-
-- Are late-night trips a meaningful slice of the business?
-- Where do they happen?
-- How do they differ in fare, distance, tipping?
-
-The data cannot answer:
-
-- Driver welfare (no driver IDs, no hours worked, no take-home pay)
-- Cash tips (payment_type 2 records $0 tips, biasing tip analysis)
-- Rider demographics or income
-- Demand elasticity (we only see current prices)
-- Alternative transit / Uber-Lyft competition
-- Outer boroughs (zones table is mostly Manhattan + airports)
 
 ---
 
@@ -113,15 +81,7 @@ You'll see two tables: `trips` (38M rows) and `zones` (70-row Manhattan neighbor
 SELECT COUNT(*) FROM trips;
 ```
 
-**Output:**
-
-```
-count(*)
---------
-38310226
-```
-
-That's 38 million rows in 2023.
+Run it. The number you see is the total count of trips for all of 2023.
 
 ### Query 2: What does a single trip look like?
 
@@ -130,21 +90,9 @@ That's 38 million rows in 2023.
 SELECT * FROM trips LIMIT 5;
 ```
 
-**Output:**
+Run it. As you look at the result, notice two things:
 
-```
-pickup_time          dropoff_time         passengers  distance_miles  pickup_zone_id  dropoff_zone_id  fare  tip   total  payment_type
--------------------  -------------------  ----------  --------------  --------------  ---------------  ----  ----  -----  ------------
-2023-01-01 00:32:10  2023-01-01 00:40:36  1.0         0.97            161             141              9.3   0.0   14.3   2
-2023-01-01 00:55:08  2023-01-01 01:01:27  1.0         1.1             43              237              7.9   4.0   16.9   1
-2023-01-01 00:25:04  2023-01-01 00:37:49  1.0         2.51            48              238              14.9  15.0  34.9   1
-2023-01-01 00:03:48  2023-01-01 00:13:25  0.0         1.9             138             7                12.1  0.0   20.85  1
-2023-01-01 00:10:29  2023-01-01 00:21:19  1.0         1.43            107             79               11.4  3.28  19.68  1
-```
-
-A few things to notice:
-
-- `pickup_time` is stored as **text**, not a real timestamp. SQLite has no real timestamp type, so dates live as strings.
+- `pickup_time` is stored as **text**, not a real timestamp. SQLite has no real timestamp type, so dates live as strings. We'll need string surgery to extract the hour later.
 - `payment_type` is coded: 1 = Credit card, 2 = Cash, 3 = No charge, 4 = Dispute.
 
 ---
@@ -168,38 +116,7 @@ ORDER BY hour_of_day;
 
 `SUBSTR(pickup_time, 12, 2)` grabs 2 characters at position 12, which is where the hour lives in `2023-01-15 22:30:00`. `CAST(... AS INTEGER)` converts that text into a number we can compare and group by.
 
-**Output:**
-
-```
-hour_of_day  num_trips
------------  ---------
-0            1088628
-1            731321
-2            483366
-3            319641
-4            217492
-5            226411
-6            532181
-7            1044241
-8            1446062
-9            1632601
-10           1773717
-11           1925489
-12           2090720
-13           2157093
-14           2311519
-15           2371342
-16           2374464
-17           2581999
-18           2704217
-19           2416756
-20           2153613
-21           2151209
-22           1994411
-23           1581733
-```
-
-Peak: 6 PM (2.7M trips). Trough: 4 AM (217K). Late-night is real, but it's the minority.
+This query takes longer than the previous two because it scans all 38 million rows and does string surgery on each. That's a good sign you're on a compute node — a laptop would struggle with this.
 
 ### Query 4: Late-night vs daytime split
 
@@ -219,16 +136,7 @@ WHERE pickup_time IS NOT NULL
 GROUP BY time_period;
 ```
 
-**Output:**
-
-```
-time_period  num_trips  pct
------------  ---------  ----
-Daytime      31893634   83.3
-Late-Night   6416592    16.7
-```
-
-Late-night is **16.7% of total business**. Not trivial, not dominant. Big enough to matter for any fare-change decision.
+`CASE WHEN ... THEN ... ELSE ... END` is SQL's if/else. We're labeling each trip Late-Night or Daytime based on the pickup hour. The subquery `(SELECT COUNT(*) FROM trips)` runs first to give us the total, then we divide by it for the percentage.
 
 ---
 
@@ -250,26 +158,7 @@ ORDER BY num_trips DESC
 LIMIT 10;
 ```
 
-`pickup_zone_id` in trips is a number. To turn it into a neighborhood name, we look it up in the zones table. JOIN matches every trip to its zone by the shared ID column.
-
-**Output:**
-
-```
-zone_name                      num_trips
------------------------------  ---------
-JFK Airport                    416574
-East Village                   402029
-West Village                   339860
-Clinton East                   281816
-Sutton Place/Turtle Bay South  254150
-Lower East Side                236074
-Greenwich Village South        230367
-Midtown Center                 206353
-Lincoln Square East            199624
-Penn Station/Madison Sq West   191701
-```
-
-This is a **mixed picture**, not just bar crowd. JFK leads (red-eyes, international arrivals). Heavy entertainment districts follow (East/West Village, Lower East Side, Greenwich Village South). Penn Station is on the list (late train arrivals). Late-night riders are not a single population.
+`pickup_zone_id` in trips is a number. To turn it into a neighborhood name, we look it up in the zones table. JOIN matches every trip to its zone by the shared ID column. `t` and `z` are aliases — short names that let us write `t.column` instead of `trips.column`.
 
 ---
 
@@ -296,16 +185,9 @@ WHERE pickup_time IS NOT NULL
 GROUP BY time_period;
 ```
 
-**Output:**
+`AVG(...)` averages a column across the rows in each group. `ROUND(..., 2)` keeps the output to two decimal places.
 
-```
-time_period  avg_fare  avg_distance  avg_tip
------------  --------  ------------  -------
-Daytime      19.51     4.04          3.52
-Late-Night   19.60     4.32          3.51
-```
-
-This is the surprise. The numbers are **remarkably similar**. Late-night fares are 9 cents higher (0.5%), distances are 0.28 miles longer (7%), tips are 1 cent lower (essentially identical). The intuition that "late-night must be wildly different" does not hold in this data.
+When you read this result, ask yourself: are late-night and daytime trips fundamentally different in dollars and distance, or not? The answer matters for the recommendation we're building.
 
 ---
 
@@ -334,29 +216,8 @@ exit  # leaves the idev session
 
 ---
 
-## The recommendation
-
-What the data shows:
-
-- Late-night is **16.7%** of total trips (6.4M of 38.3M)
-- Concentrated in **JFK Airport, entertainment districts, and transit hubs** — not a single rider population
-- Late-night vs daytime averages are nearly identical: **fare $19.60 vs $19.51, distance 4.32 vs 4.04 mi, tip $3.51 vs $3.52**
-
-What the data CANNOT tell us (repeating from above because it matters):
-
-- Driver welfare
-- Cash tips (biased data)
-- Rider demographics or income
-- Demand elasticity
-- Alternative transit / Uber-Lyft competition
-- Outer boroughs
-
-**Recommendation, based on this data alone: don't raise late-night fares.** The dollar metrics tell us late-night and daytime trips are basically the same. Whatever case there is for raising fares cannot be made on these averages — it would have to come from data we don't have (driver wait times, safety, supply/demand imbalances).
-
-The lesson: an honest analyst is honest about what the data does and doesn't support. The data sometimes refuses to support the obvious answer. Your job is to be honest about that.
-
----
-
 ## Now do the homework
 
-You've seen the worked example. The [homework](homework.html) gives you a different analyst question (airport pricing) on the same dataset. Same shape, different question. Apply the same thinking.
+You've now run the same six queries we ran together in class. The interpretation, recommendation, and what the data does and doesn't support are what we worked through in the lecture — if you missed any of that, come to office hours.
+
+The [homework](homework.html) gives you a different analyst question (airport pricing) on the same dataset. Same techniques you just used here, applied to a new question.
